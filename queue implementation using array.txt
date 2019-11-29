@@ -1,0 +1,132 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<mem.h>
+
+ struct Student {
+  char name[20];
+  int id;
+  int grads[3];
+ };
+
+ struct Student stu[100];
+ int rear;
+ struct Student FillStudent(void);
+ void PrintStudent(struct Student stu);
+
+ int Inqueue(struct Student st);
+ struct Student Dequeue (void);
+
+ int main()
+  {
+  // struct Student stu[3];
+   int retval;
+   int num;
+   struct Student st;
+   clrscr();
+   printf("queue concept.\n");
+   printf("1.Add \n");
+   printf("2.Dequeue \n");
+   printf("3.Exit \n");
+   do
+    {
+      printf("Enter your choice: \n");
+      scanf("%d",&num);
+      if(num == 1)
+      {
+	 st=FillStudent();
+	 retval=Inqueue(st);
+	 if(retval == 1)
+	  {
+	   printf("your Data is inserted \n");
+	  }
+	 else
+	  {
+	   printf("your data doesn't inserted \n");
+	  }
+      }
+
+      if(num == 2)
+       {
+        st = Dequeue();
+	if(st.id==0)
+	{
+	  printf("your queu is empte \n");
+	}
+	else {
+	
+	PrintStudent(st);
+	 }
+
+       }
+
+    }while(num!=3);
+   getch();
+   return 0;
+  }
+
+  struct Student FillStudent ()
+  {
+   struct Student st;
+   int i;
+   printf("Insert Student information:\n");
+   printf("Enter Name:\n");
+   scanf("%s",st.name);
+   printf("Enter id:\n");
+   scanf("%d",&st.id);
+   printf("Enter Student grads\n");
+   for(i=0;i<3;i++)
+    {
+       printf("enter %d grade :\n",i+1);
+       scanf("%d",&st.grads[i]);
+    }
+    printf("\n");
+    return st;
+  }
+
+  void PrintStudent (struct Student st)
+  {
+    int i;
+    printf("Name is %s \n",st.name);
+    printf("ID = %d \n",st.id);
+    printf("your grads is: ");
+    for(i=0;i<3;i++)
+     {
+       printf("%d ",st.grads[i]);
+     }
+     printf("\n");
+  }
+
+
+  int Inqueue (struct Student st)
+  {
+    int retval=0;
+
+    if(rear<100)
+    {
+     stu[rear]=st;
+     rear++;
+     retval=1;
+    }
+    else
+     {
+      printf("your queue is full capacity \n");
+     }
+
+    return retval;
+  }
+  struct Student Dequeue ()
+ {
+    struct Student st;
+    int i;
+
+   // printf("%d",rear);
+    st=stu[0];
+      for(i=0;i<rear;i++)
+       {
+	 stu[i]=stu[i+1];
+       }
+
+     rear --;
+     return st;
+  }
